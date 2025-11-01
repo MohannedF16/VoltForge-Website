@@ -241,9 +241,10 @@ button {
 
 .right-area .bag {
   position: relative;
+  
 }
-.right-area .bag::after {
-  content: "2";
+/* .right-area .bag::after {
+  content: "";
   width: 20px;
   height: 20px;
   background: var(--danger);
@@ -255,10 +256,10 @@ button {
   transition: 0.5s;
   left: 13px;
   top: -3px;
-}
-.right-area .bag:hover::after {
+} */
+/* .right-area .bag:hover::after {
   top: -6px;
-}
+} */
 
 /* area-3 */
 .area-3 {

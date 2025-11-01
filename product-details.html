@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Product Details - VoltForge</title>
+    <link rel="shortcut icon" type="image/x-icon" href="images/logo.jpg" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/product-details.css" />
+    <link rel="stylesheet" href="css/all.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;600;700&family=Merriweather:wght@300;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header>
+      <div class="header-area">
+        <div class="container area-1">
+          <div>
+            <a href="#">About Us</a>
+            <a href="#">Warranty</a>
+            <a href="#">FAQ</a>
+            <a href="#">Careers</a>
+          </div>
+          <div>
+            <a href="favorites.html">My Wishlist</a>
+            <a href="#">Track Order</a>
+            <a href="#" class="i-1"><i class="fab fa-facebook"></i></a>
+            <a href="#" class="i-1"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="i-1"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="i-1"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+
+        <hr />
+
+        <div class="container area-2">
+          <div class="left-area">
+            <a href="index.html" class="brand" aria-label="VoltForge — Home">
+              <img src="images/logo.jpg" alt="VoltForge logo" />
+              <span class="brand-name"
+                >Volt<span class="brand-accent">Forge</span></span
+              >
+            </a>
+          </div>
+
+          <div class="center-area">
+            <nav>
+              <ul>
+                <li><a href="index.html" class="link-center">Home</a></li>
+                <li><a href="#" class="link-center">Consoles</a></li>
+                <li><a href="#" class="link-center">Gaming PCs</a></li>
+                <li><a href="#" class="link-center">Accessories</a></li>
+                <li class="main-menue">
+                  <a href="#" class="link-center"
+                    >Pages<i class="fas fa-angle-down angle"></i
+                  ></a>
+                  <div class="drop-menue">
+                    <ul>
+                      <li class="first-li">Pages</li>
+                      <li><a href="signin.html" class="link-drop">Login</a></li>
+                      <li><a href="cart.html" class="link-drop">Cart</a></li>
+                      <li>
+                        <a href="product-details.html?id=1" class="link-drop"
+                          >Product Details</a
+                        >
+                      </li>
+                      <li><a href="#" class="link-drop">Checkout</a></li>
+                    </ul>
+                    <ul>
+                      <li class="first-li">Blog</li>
+                      <li><a href="#" class="link-drop">News</a></li>
+                      <li><a href="#" class="link-drop">Guides</a></li>
+                    </ul>
+                  </div>
+                </li>
+                <li><a href="#" class="link-center">Support</a></li>
+              </ul>
+            </nav>
+          </div>
+
+          <div class="right-area">
+            <a href="#" class="search-icon"><i class="fas fa-search"></i></a>
+            <a href="signin.html"><i class="far fa-user"></i></a>
+            <a href="favorites.html"><i class="far fa-heart"></i></a>
+            <a href="cart.html" class="bag"
+              ><i class="fas fa-shopping-cart"></i
+            ></a>
+          </div>
+        </div>
+
+        <div class="area-3">
+          <p>
+            <strong>Spring Drop:</strong> New RTX 40-Series preorders open.
+            Limited launch bundles — <a href="#">Shop Now</a>
+          </p>
+        </div>
+      </div>
+    </header>
+
+    <main class="product-details-container">
+      <div class="container">
+        <div class="product-details">
+          <div class="product-images">
+            <div class="main-image">
+              <img id="mainProductImage" src="" alt="Product Image" />
+            </div>
+          </div>
+
+          <div class="product-info">
+            <h1 id="productName">Product Name</h1>
+            <div class="price-section">
+              <span class="current-price" id="productPrice">$0</span>
+              <span class="old-price" id="productOldPrice">$0</span>
+            </div>
+
+            <div class="product-description">
+              <p id="productDescription">
+                Product description will appear here.
+              </p>
+            </div>
+
+            <div class="product-actions">
+              <div class="quantity-selector">
+                <button class="quantity-btn" id="decreaseQty">-</button>
+                <span class="quantity" id="quantity">1</span>
+                <button class="quantity-btn" id="increaseQty">+</button>
+              </div>
+
+              <div class="action-buttons">
+                <button class="add-to-cart-btn" id="addToCart">
+                  Add to Cart
+                </button>
+                <button class="favorite-btn" id="addToFavorite">
+                  <i class="far fa-heart"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="product-meta">
+              <div class="meta-item">
+                <i class="fas fa-shipping-fast"></i>
+                <span>Free Shipping</span>
+              </div>
+              <div class="meta-item">
+                <i class="fas fa-undo"></i>
+                <span>30-Day Return</span>
+              </div>
+              <div class="meta-item">
+                <i class="fas fa-shield-alt"></i>
+                <span>2-Year Warranty</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script src="js/products.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/product-details.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/favorites.js"></script>
+  </body>
+</html>
