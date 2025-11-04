@@ -1,4 +1,6 @@
-// Sample products data
+// products.js - Initialize all data first
+console.log('Initializing products data...');
+
 const sampleProducts = [
     {
         id: '1',
@@ -7,7 +9,7 @@ const sampleProducts = [
         oldPrice: 1399,
         category: 'GPU',
         image: 'images/dao-hi-u-3UAiwOgoSnE-unsplash.jpg',
-        description: 'High-performance graphics card with ray tracing technology and AI-powered features for the ultimate gaming experience. Features 16GB GDDR6X memory, DLSS 3.0, and advanced cooling system.'
+        description: 'High-performance graphics card with ray tracing technology and AI-powered features for the ultimate gaming experience.'
     },
     {
         id: '2',
@@ -16,7 +18,7 @@ const sampleProducts = [
         oldPrice: 799,
         category: 'Monitor',
         image: 'images/mohammadreza-alidoost-8XrE7Kp7FNw-unsplash.jpg',
-        description: 'Crystal-clear OLED display with 240Hz refresh rate for buttery-smooth gameplay and vibrant colors. 27-inch 4K resolution with HDR support and 1ms response time.'
+        description: 'Crystal-clear OLED display with 240Hz refresh rate for buttery-smooth gameplay and vibrant colors.'
     },
     {
         id: '3',
@@ -25,7 +27,7 @@ const sampleProducts = [
         oldPrice: 249,
         category: 'Headset',
         image: 'images/wu-yi-rNCoW7s8oHE-unsplash.jpg',
-        description: 'Premium wireless gaming headset with 7.1 surround sound and noise-cancelling microphone. Features 30-hour battery life, RGB lighting, and memory foam ear cushions.'
+        description: 'Premium wireless gaming headset with 7.1 surround sound and noise-cancelling microphone.'
     },
     {
         id: '4',
@@ -34,7 +36,7 @@ const sampleProducts = [
         oldPrice: 179,
         category: 'Keyboard',
         image: 'images/samsul-NsAGCQU3s7E-unsplash.jpg',
-        description: 'Mechanical gaming keyboard with customizable RGB lighting and responsive switches. Full anti-ghosting, dedicated media controls, and detachable wrist rest.'
+        description: 'Mechanical gaming keyboard with customizable RGB lighting and responsive switches.'
     },
     {
         id: '5',
@@ -43,7 +45,7 @@ const sampleProducts = [
         oldPrice: 549,
         category: 'Console',
         image: 'images/nikolai-chernichenko-YLDaaA-R3l0-unsplash.jpg',
-        description: 'Next-generation gaming console bundle including controller and popular game title. 1TB SSD storage, 4K gaming support, and backward compatibility.'
+        description: 'Next-generation gaming console bundle including controller and popular game title.'
     },
     {
         id: '6',
@@ -52,7 +54,7 @@ const sampleProducts = [
         oldPrice: 1499,
         category: 'Laptop',
         image: 'images/taylor-r-5Mw0JlOjtTc-unsplash.jpg',
-        description: 'Powerful gaming laptop with 32GB RAM, high-end GPU, and fast SSD storage. 15.6-inch 144Hz display, RGB keyboard, and advanced cooling system.'
+        description: 'Powerful gaming laptop with 32GB RAM, high-end GPU, and fast SSD storage.'
     },
     {
         id: '7',
@@ -61,7 +63,7 @@ const sampleProducts = [
         oldPrice: 99,
         category: 'Controller',
         image: 'images/ryan-quintal-sYY94OQzOmw-unsplash.jpg',
-        description: 'Ergonomic wireless controller with precision analog sticks and customizable buttons. Features haptic feedback, 40-hour battery life, and customizable RGB.'
+        description: 'Ergonomic wireless controller with precision analog sticks and customizable buttons.'
     },
     {
         id: '8',
@@ -70,32 +72,41 @@ const sampleProducts = [
         oldPrice: 299,
         category: 'Chair',
         image: 'images/kadyn-pierce-PruhDU1m1Yk-unsplash.jpg',
-        description: 'Ergonomic gaming chair with lumbar support, adjustable armrests, and premium materials. 4D adjustable, high-density foam, and premium PU leather.'
+        description: 'Ergonomic gaming chair with lumbar support, adjustable armrests, and premium materials.'
     }
 ];
 
-// Initialize products in localStorage if not already set
-function initializeData() {
+// Initialize all localStorage data
+function initializeAppData() {
+    console.log('Initializing application data...');
+    
     if (!localStorage.getItem('products')) {
         localStorage.setItem('products', JSON.stringify(sampleProducts));
+        console.log('Products initialized');
     }
     
     if (!localStorage.getItem('users')) {
         localStorage.setItem('users', JSON.stringify([]));
+        console.log('Users initialized');
     }
     
     if (!localStorage.getItem('cart')) {
         localStorage.setItem('cart', JSON.stringify([]));
+        console.log('Cart initialized');
     }
     
     if (!localStorage.getItem('favorites')) {
         localStorage.setItem('favorites', JSON.stringify([]));
+        console.log('Favorites initialized');
     }
     
     if (!localStorage.getItem('currentUser')) {
         localStorage.setItem('currentUser', JSON.stringify(null));
+        console.log('Current user initialized');
     }
+    
+    console.log('All data initialized successfully');
 }
 
-// Initialize when script loads
-initializeData();
+// Initialize immediately when this script loads
+initializeAppData();

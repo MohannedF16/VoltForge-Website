@@ -9,23 +9,11 @@ class Favorites {
         if (document.getElementById('favoritesGrid')) {
             this.displayFavorites();
         }
+        this.updateFavoriteIcons();
+        this.updateFavoritesCount();
     }
 
     addToFavorites(productId) {
-        // Check if user is logged in
-        if (!window.auth || !window.auth.isLoggedIn()) {
-            if (window.auth) {
-                window.auth.redirectToLoginWithReturn();
-            } else {
-                // Store current page and redirect to login
-                const returnUrl = window.location.href;
-                localStorage.setItem('returnUrl', returnUrl);
-                window.location.href = 'signin.html';
-            }
-            return false;
-        }
-
-        // User is logged in, proceed with adding to favorites
         const products = JSON.parse(localStorage.getItem('products')) || [];
         const product = products.find(p => p.id === productId);
 
@@ -37,6 +25,10 @@ class Favorites {
         if (!this.isFavorite(productId)) {
             this.favorites.push(productId);
             this.saveFavorites();
+            
+            // Update favorite icons
+            this.updateFavoriteIcons();
+            this.updateFavoritesCount();
             
             // Show success message if not on favorites page
             if (!document.getElementById('favoritesGrid')) {
@@ -52,17 +44,12 @@ class Favorites {
     }
 
     removeFromFavorites(productId) {
-        // Check if user is logged in
-        if (!window.auth || !window.auth.isLoggedIn()) {
-            if (window.auth) {
-                window.auth.redirectToLoginWithReturn();
-            }
-            return false;
-        }
-
-        // User is logged in, proceed with removal
         this.favorites = this.favorites.filter(id => id !== productId);
         this.saveFavorites();
+
+        // Update favorite icons
+        this.updateFavoriteIcons();
+        this.updateFavoritesCount();
 
         // Update UI if on favorites page
         if (document.getElementById('favoritesGrid')) {
@@ -131,8 +118,9 @@ class Favorites {
         document.querySelectorAll('.add-to-cart-btn-sm').forEach(button => {
             button.addEventListener('click', (e) => {
                 const productId = e.target.getAttribute('data-id');
-                const cart = new Cart();
-                cart.addToCart(productId);
+                if (window.cart) {
+                    window.cart.addToCart(productId);
+                }
             });
         });
 
@@ -143,6 +131,76 @@ class Favorites {
                 this.removeFromFavorites(productId);
             });
         });
+    }
+
+    updateFavoriteIcons() {
+        // Update all favorite icons on the page
+        document.querySelectorAll('.add-to-favorite').forEach(button => {
+            const productId = button.getAttribute('data-id');
+            const icon = button.querySelector('i');
+            if (icon && this.isFavorite(productId)) {
+                icon.classList.remove('far');
+                icon.classList.add('fas');
+                icon.style.color = 'var(--danger)';
+            } else if (icon) {
+                icon.classList.remove('fas');
+                icon.classList.add('far');
+                icon.style.color = '';
+            }
+        });
+    }
+
+    updateFavoritesCount() {
+        const favoritesCount = this.favorites.length;
+        const heartIcon = document.querySelector('a[href="favorites.html"]');
+        
+        if (heartIcon) {
+            // Remove existing count
+            const existingCount = heartIcon.querySelector('.favorites-count');
+            if (existingCount) {
+                existingCount.remove();
+            }
+
+            if (favoritesCount > 0) {
+                const countElement = document.createElement('span');
+                countElement.className = 'favorites-count';
+                countElement.textContent = favoritesCount;
+                countElement.style.position = 'absolute';
+                countElement.style.top = '-5px';
+                countElement.style.right = '-5px';
+                countElement.style.background = 'var(--accent)';
+                countElement.style.color = '#061226';
+                countElement.style.borderRadius = '50%';
+                countElement.style.width = '18px';
+                countElement.style.height = '18px';
+                countElement.style.fontSize = '12px';
+                countElement.style.display = 'flex';
+                countElement.style.alignItems = 'center';
+                countElement.style.justifyContent = 'center';
+                countElement.style.fontWeight = 'bold';
+                countElement.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+                countElement.style.cursor = 'pointer';
+                countElement.style.boxShadow = '0 2px 8px rgba(0, 255, 255, 0.3)';
+                countElement.style.zIndex = '10';
+                countElement.style.border = '2px solid var(--panel)';
+
+                // Add hover effects
+                countElement.onmouseenter = function () {
+                    this.style.transform = 'scale(1.4) rotate(12deg)';
+                    this.style.background = '#00ffff';
+                    this.style.boxShadow = '0 4px 15px rgba(0, 255, 255, 0.6)';
+                };
+
+                countElement.onmouseleave = function () {
+                    this.style.transform = 'scale(1) rotate(0deg)';
+                    this.style.background = 'var(--accent)';
+                    this.style.boxShadow = '0 2px 8px rgba(0, 255, 255, 0.3)';
+                };
+
+                heartIcon.style.position = 'relative';
+                heartIcon.appendChild(countElement);
+            }
+        }
     }
 
     getFavorites() {
@@ -169,6 +227,23 @@ class Favorites {
             messageDiv.style.color = '#061226';
         }
 
+        // Add animation styles
+        if (!document.querySelector('.message-animation-styles')) {
+            const styles = `
+                @keyframes slideInRight {
+                    from { transform: translateX(100%); opacity: 0; }
+                    to { transform: translateX(0); opacity: 1; }
+                }
+                @keyframes fadeOut {
+                    to { opacity: 0; transform: translateY(-20px); }
+                }
+            `;
+            const styleSheet = document.createElement('style');
+            styleSheet.className = 'message-animation-styles';
+            styleSheet.textContent = styles;
+            document.head.appendChild(styleSheet);
+        }
+
         messageDiv.style.animation = 'slideInRight 0.3s ease, fadeOut 0.3s ease 2s forwards';
 
         document.body.appendChild(messageDiv);
@@ -181,7 +256,12 @@ class Favorites {
     }
 }
 
-// Initialize favorites when DOM is loaded
+// Initialize favorites when DOM is loaded, but avoid overwriting existing instance
 document.addEventListener('DOMContentLoaded', function() {
-    window.favorites = new Favorites();
+    if (!window.favorites) {
+        window.favorites = new Favorites();
+        console.log('Favorites initialized (favorites.js)');
+    } else {
+        console.log('Favorites already initialized; skipping duplicate initialization (favorites.js)');
+    }
 });

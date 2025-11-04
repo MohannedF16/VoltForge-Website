@@ -54,7 +54,7 @@ class Cart {
         this.saveCart();
         this.updateCartCount();
 
-        // If we're on the cart page, refresh the display
+        // If on the cart page, refresh the display
         if (document.getElementById('cartItems')) {
             this.displayCartItems();
         }
@@ -237,7 +237,7 @@ class Cart {
                 countElement.style.zIndex = '10';
                 countElement.style.border = '2px solid var(--panel)';
 
-                // Add hover effects using CSS transitions
+                // Adding hover effects using CSS transitions
                 countElement.onmouseenter = function () {
                     this.style.transform = 'scale(1.4) rotate(12deg)';
                     this.style.background = '#ff1a1a';
@@ -271,7 +271,7 @@ class Cart {
             return;
         }
 
-        // In a real application, you would redirect to a checkout page
+        
         this.showMessage('Proceeding to checkout!', 'success');
 
        
@@ -321,7 +321,12 @@ class Cart {
     }
 }
 
-// Initialize cart when DOM is loaded
+// Initialize cart when DOM is loaded, but don't overwrite if already set
 document.addEventListener('DOMContentLoaded', function () {
-    window.cart = new Cart();
+    if (!window.cart) {
+        window.cart = new Cart();
+        console.log('Cart initialized (cart.js)');
+    } else {
+        console.log('Cart already initialized; skipping duplicate initialization (cart.js)');
+    }
 });
